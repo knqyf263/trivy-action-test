@@ -1,0 +1,14 @@
+on: 
+  push:
+  workflow_dispatch:
+
+jobs:
+  trivy_scan:
+    runs-on: ubuntu-latest
+    name: Trivy scan
+    steps:
+      - uses: actions/checkout@v4
+      - uses: knqyf263/trivy-action@composite
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
