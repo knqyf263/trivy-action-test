@@ -8,7 +8,7 @@ jobs:
     name: Trivy scan
     steps:
       - uses: actions/checkout@v4
-      - uses: knqyf263/trivy-action@composite
+      - uses: knqyf263/trivy-action@de3a310bab97e5189def051bd578a8f779bb9dc7
         with:
           scan-type: 'image'
           scan-ref: 'jenkins:2.60.3'
