@@ -12,3 +12,4 @@ jobs:
         with:
           scan-type: 'image'
           scan-ref: 'jenkins:2.60.3'
+          severity: 'MEDIUM,HIGH'
