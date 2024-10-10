@@ -9,9 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         #- uses: knqyf263/trivy-action@1a12292eac50a1a4bec4e98f32c43564e51cff1f
-      - uses: aquasecurity/trivy-action@807896715e16054f9ae275ea68a15ee3908f0124
+      - run: |
+          pwd
+          ls -l
+          ls -l /github/workspace
+          ls -l /github/workspace/.github/workflows
+      - uses: aquasecurity/trivy-action@0.25.0
         with:
           scan-type: 'image'
-          scan-ref: 'jenkins:2.60.3'
-        env:
-          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
+          image-ref: 'jenkins:2.60.3'
+          format: 'template'
+          template: '@/github/workspace/.github/workflows/html.tpl'
