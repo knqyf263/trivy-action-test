@@ -8,7 +8,10 @@ jobs:
     name: Trivy scan
     steps:
       - uses: actions/checkout@v4
-      - uses: knqyf263/trivy-action@1a12292eac50a1a4bec4e98f32c43564e51cff1f
+        #- uses: knqyf263/trivy-action@1a12292eac50a1a4bec4e98f32c43564e51cff1f
+      - uses: aquasecurity/trivy-action@807896715e16054f9ae275ea68a15ee3908f0124
         with:
           scan-type: 'image'
           scan-ref: 'jenkins:2.60.3'
+        env:
+          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
