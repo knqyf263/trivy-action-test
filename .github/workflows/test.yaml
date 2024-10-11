@@ -1,0 +1,26 @@
+name: Scan image
+on:
+  workflow_dispatch:
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Vulnerability scan (fixed and non-fixed)
+        uses: aquasecurity/trivy-action@0.25.0
+        env:
+          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
+        with:
+          image-ref: 'alpine:3.20.0'
+          format: 'template'
+          # Manually downloaded the template from the Trivy GitHub repo since it is somehow not found by default
+          template: '@/github/workspace/.github/workflows/trivy_html_template.tpl'
+          output: 'report.html'
+          severity: 'HIGH,CRITICAL'
+          timeout: '12m'
